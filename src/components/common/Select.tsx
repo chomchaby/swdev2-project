@@ -10,15 +10,18 @@ export default function CustomSelect({
   onChange,
   label,
   helpertext,
+  error = false,
 }: {
   items: { label: string; value: string }[];
   selectedItem: string;
   onChange: Function;
   label?: string;
   helpertext?: string;
+  error?: boolean;
 }) {
+  console.log(helpertext);
   return (
-    <FormControl fullWidth size="small">
+    <FormControl fullWidth size="small" error={error}>
       <InputLabel
         id="demo-simple-select-helper-label"
         sx={{

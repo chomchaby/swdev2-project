@@ -21,6 +21,7 @@ const BookingList = () => {
             items={bookingFilter}
             selectedItem={filter}
             onChange={(value: string) => setFilter(value)}
+            label="Booking Date"
           ></CustomSelect>
         </div>
       </div>
