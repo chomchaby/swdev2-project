@@ -1,7 +1,7 @@
 interface CoWorkingSpaceItem {
   _id: string;
   name: string;
-  opertingHours: string;
+  operatingHours: string;
   address: string;
   province: string;
   postalcode: string;

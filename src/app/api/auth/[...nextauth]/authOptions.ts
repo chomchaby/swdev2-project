@@ -1,6 +1,7 @@
 import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import userLogIn from "@/libs/userLogIn";
+import getUserProfile from "@/libs/getUserProfile";
 export const authOptions: AuthOptions = {
   providers: [
     // Authentication Provider, use Credentials Provider
@@ -21,6 +22,14 @@ export const authOptions: AuthOptions = {
         const user = await userLogIn(credentials.email, credentials.password);
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
+          // After login, fetch the role from '/me' endpoint using the token
+          try {
+            const profile = await getUserProfile(user.token);
+            user.role = profile.data.role;
+          } catch (error) {
+            console.error("Error fetching user role: ", error);
+            return null;
+          }
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
@@ -39,9 +48,9 @@ export const authOptions: AuthOptions = {
       session.user = token as any;
       return session;
     },
-    // async redirect({ url, baseUrl }) {
-    //   // Always redirect back to the home page after login
-    //   return baseUrl; // This redirects to "/"
-    // },
+    async redirect({ url, baseUrl }) {
+      // Always redirect back to the home page after login
+      return baseUrl; // This redirects to "/"
+    },
   },
 };

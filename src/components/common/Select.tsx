@@ -19,7 +19,6 @@ export default function CustomSelect({
   helpertext?: string;
   error?: boolean;
 }) {
-  console.log(helpertext);
   return (
     <FormControl fullWidth size="small" error={error}>
       <InputLabel

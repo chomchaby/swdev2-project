@@ -1,6 +1,6 @@
 const updateBooking = async (
   id: string,
-  bookingDate: Date,
+  bookingDate: string,
   numOfRooms: number,
   token: string
 ) => {

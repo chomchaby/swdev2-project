@@ -6,7 +6,6 @@ import {
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 const CoWorkingSpaceCard = ({ data }: { data: CoWorkingSpaceItem }) => {
-  console.log(data.picture);
   return (
     <div className="flex flex-col space-y-[6px]">
       <div className="w-full pt-[60%] relative">
@@ -22,7 +21,7 @@ const CoWorkingSpaceCard = ({ data }: { data: CoWorkingSpaceItem }) => {
           icon={faClock}
           className="text-secondary-500 w-[1rem] mr-[0.5rem]"
         ></FontAwesomeIcon>
-        Operating Hours: {data.opertingHours}
+        Operating Hours: {data.operatingHours}
       </div>
       <div>
         <FontAwesomeIcon

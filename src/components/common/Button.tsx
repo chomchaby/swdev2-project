@@ -4,6 +4,7 @@ import classNames from "classnames";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: "primary" | "secondary"; // Color variants
   size?: "sm" | "md" | "lg"; // Size variants
+  className?: string; // Allow additional custom class names
 }
 
 const baseClasses =
@@ -33,7 +34,7 @@ const activeClasses = {
 };
 
 const CustomButton = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ color = "primary", size = "sm", children, ...props }, ref) => {
+  ({ color = "primary", size = "sm", children, className, ...props }, ref) => {
     // Choose the correct color class based on the color prop
     const colorClass =
       color === "secondary"
@@ -44,12 +45,14 @@ const CustomButton = forwardRef<HTMLButtonElement, ButtonProps>(
         ? activeClasses.secondary[size]
         : activeClasses[color]
       : "disabled:opacity-40";
-    // Combine base classes, size classes, color classes, and add disabled state classes if needed
+
+    // Combine base classes, size classes, color classes, active state, and any additional class names
     const buttonClass = classNames(
       baseClasses,
       sizeClasses[size],
       colorClass,
-      activeClass
+      activeClass,
+      className // Allow additional class names from outside
     );
 
     return (

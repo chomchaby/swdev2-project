@@ -1,6 +1,6 @@
 const createBooking = async (
   coworkingspaceId: string,
-  bookingDate: Date,
+  bookingDate: string,
   numOfRooms: number,
   token: string
 ) => {
