@@ -15,6 +15,8 @@ export default function Home() {
         <p className="body2-semibold">Body 2 SemiBold</p>
         <p className="body2-md">Body 2 Medium</p>
         <p className="body2-regular">Body 2 Regular</p>
+        <p className="p">paragraph</p>
+        <p className="small">small paragraph</p>
         <div className="m-8">
           <p className="h2">Color</p>
           <p className="subtitle2">Background/Foreground</p>

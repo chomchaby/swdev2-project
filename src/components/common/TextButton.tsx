@@ -19,12 +19,17 @@ const activeClasses = {
 };
 
 const CustomTextButton = forwardRef<HTMLButtonElement, TextButtonProps>(
-  ({ size = "sm", children, ...props }, ref) => {
+  ({ size = "sm", children, className, ...props }, ref) => {
     const activeClass = !props.disabled
       ? activeClasses[size]
       : "disabled:opacity-40";
 
-    const buttonClass = classNames(baseClasses, sizeClasses[size], activeClass);
+    const buttonClass = classNames(
+      baseClasses,
+      sizeClasses[size],
+      activeClass,
+      className
+    );
 
     return (
       <button ref={ref} className={buttonClass} {...props}>

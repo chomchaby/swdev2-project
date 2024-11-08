@@ -22,6 +22,7 @@ interface CoWorkingSpacesJson {
 }
 
 interface BookingItem {
+  _id: string;
   bookingDate: string;
   numOfRooms: number;
   user: string;

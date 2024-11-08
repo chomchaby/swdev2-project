@@ -33,6 +33,12 @@
   .body2-regular {
     @apply text-neutral-700 font-normal text-[16px] leading-[24px];
   }
+  .p {
+    @apply text-neutral-700 font-normal text-[14px] leading-[18px];
+  }
+  .small {
+    @apply text-neutral-700 font-normal text-[12px] leading-[16px];
+  }
 }
 
 

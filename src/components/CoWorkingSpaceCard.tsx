@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 const CoWorkingSpaceCard = ({ data }: { data: CoWorkingSpaceItem }) => {
   return (
-    <div className="flex flex-col space-y-[6px]">
+    <div className="flex flex-col space-y-[6px] body2-md">
       <div className="w-full pt-[60%] relative">
         <Image
           src={data.picture}

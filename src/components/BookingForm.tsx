@@ -1,10 +1,9 @@
 "use client";
 import { useSession } from "next-auth/react";
-import getBooking from "@/libs/getBooking";
+import { useRouter } from "next/navigation";
 import createBooking from "@/libs/createBooking";
 import updateBooking from "@/libs/updateBooking";
 import deleteBooking from "@/libs/deleteBooking";
-import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
@@ -15,7 +14,6 @@ import { Dayjs } from "dayjs";
 import dayjs from "dayjs";
 import CustomSelect from "./common/Select";
 import CustomButton from "./common/Button";
-import { notFound } from "next/navigation";
 
 const numOfRoomsFilterItems = [
   { label: "1", value: "1" },
@@ -46,14 +44,15 @@ type formData = z.infer<typeof formSchema>;
 
 const BookingForm = ({
   mode,
-  bookingId,
+  bookingData,
   coWorkingSpaceId,
 }: {
   mode: "create" | "update";
-  bookingId: string;
+  bookingData: BookingItem | undefined;
   coWorkingSpaceId: string;
 }) => {
   const { data: session } = useSession();
+  const router = useRouter();
   if (!session?.user.token) {
     return null;
   }
@@ -66,8 +65,8 @@ const BookingForm = ({
   } = useForm<formData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      bookingDate: undefined,
-      numOfRooms: undefined,
+      bookingDate: bookingData ? dayjs(bookingData.bookingDate) : undefined,
+      numOfRooms: bookingData ? bookingData.numOfRooms : undefined,
     },
   });
 
@@ -81,53 +80,46 @@ const BookingForm = ({
           session.user.token
         );
         console.log("Booking created: ", response);
+        alert("Booking created successfully!");
+        router.push("/bookings");
       } catch (error) {
         console.error("Error creating booking: ", error);
+        alert("An error occurred. Please try again.");
       }
-    } else if (mode === "update" && bookingId) {
+    } else if (mode === "update" && bookingData) {
       try {
         const response = await updateBooking(
-          bookingId,
+          bookingData._id,
           data.bookingDate.format("YYYY-MM-DD"),
           data.numOfRooms,
           session.user.token
         );
         console.log("Booking updated: ", response);
+        alert("Booking updated successfully!");
+        router.replace("/bookings");
       } catch (error) {
         console.error("Error updating booking: ", error);
+        alert("An error occurred. Please try again.");
       }
     }
   };
 
   const handleDeleteBooking = async () => {
-    if (mode === "update" && bookingId) {
+    if (mode === "update" && bookingData) {
       try {
-        const response = await deleteBooking(bookingId, session.user.token);
+        const response = await deleteBooking(
+          bookingData._id,
+          session.user.token
+        );
         console.log("Booking deleted: ", response);
+        alert("Cancel the booking successfully");
+        router.replace("/bookings");
       } catch (error) {
         console.error("Error deleting booking: ", error);
+        alert("An error occurred. Please try again.");
       }
     }
   };
-
-  // Fetch the booking data if in update mode
-  useEffect(() => {
-    if (mode === "update" && bookingId) {
-      const fetchBooking = async () => {
-        try {
-          const bookingData = await getBooking(bookingId, session.user.token);
-          if (bookingData) {
-            setValue("bookingDate", dayjs(bookingData.data.bookingDate));
-            setValue("numOfRooms", bookingData.data.numOfRooms);
-          }
-        } catch (error) {
-          console.error("Error fetching booking data: ", error);
-          // redirect to the page not found
-        }
-      };
-      fetchBooking();
-    }
-  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -204,12 +196,14 @@ const BookingForm = ({
         ) : (
           <>
             <CustomButton type="submit">Save Change</CustomButton>
-            <CustomButton onClick={handleDeleteBooking}>
-              Cancel Reservation
+            <CustomButton type="button" onClick={handleDeleteBooking}>
+              Cancel Booking
             </CustomButton>
           </>
         )}
-        <CustomButton onClick={() => console.log("back")}>Back</CustomButton>
+        <CustomButton type="button" onClick={() => router.back()}>
+          Back
+        </CustomButton>
       </div>
     </form>
   );
