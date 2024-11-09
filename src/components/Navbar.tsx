@@ -9,6 +9,7 @@ import {
   faUser,
   faSignOut,
   faSignOutAlt,
+  faUserShield,
 } from "@fortawesome/free-solid-svg-icons";
 import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
 
@@ -19,7 +20,10 @@ const Navbar = () => {
     e.stopPropagation();
     router.push("/api/auth/signin");
   };
-  const handleSignUp = () => {};
+  const handleSignUp = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    router.push("/register");
+  };
   const handleLogOut = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     router.push("/api/auth/signout");
@@ -46,7 +50,7 @@ const Navbar = () => {
             </div>
             <div>
               <FontAwesomeIcon
-                icon={faUser}
+                icon={session.user.role === "admin" ? faUserShield : faUser}
                 size={"1x"}
                 className="text-neutral-700 pr-2"
               ></FontAwesomeIcon>

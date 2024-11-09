@@ -9,6 +9,8 @@ const getBookings = async (token: string) => {
     }
   );
   if (!response.ok) {
+    const errorDetails = await response.text();
+    console.error("Error fetching bookings:", errorDetails);
     throw new Error("Cannot get booking list");
   }
   return await response.json();

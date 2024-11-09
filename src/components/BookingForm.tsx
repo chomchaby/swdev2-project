@@ -52,10 +52,10 @@ const BookingForm = ({
   coWorkingSpaceId: string;
 }) => {
   const { data: session } = useSession();
-  const router = useRouter();
   if (!session?.user.token) {
     return null;
   }
+  const router = useRouter();
   const {
     handleSubmit,
     watch,
@@ -96,7 +96,11 @@ const BookingForm = ({
         );
         console.log("Booking updated: ", response);
         alert("Booking updated successfully!");
-        router.replace("/bookings");
+        router.push("/bookings");
+        // Using setTimeout to delay the reload after navigation
+        setTimeout(() => {
+          window.location.reload(); // Force a reload of the /bookings page
+        }, 100); // Small delay (100ms) to ensure navigation is complete
       } catch (error) {
         console.error("Error updating booking: ", error);
         alert("An error occurred. Please try again.");
@@ -113,7 +117,11 @@ const BookingForm = ({
         );
         console.log("Booking deleted: ", response);
         alert("Cancel the booking successfully");
-        router.replace("/bookings");
+        router.push("/bookings");
+        // Using setTimeout to delay the reload after navigation
+        setTimeout(() => {
+          window.location.reload(); // Force a reload of the /bookings page
+        }, 100); // Small delay (100ms) to ensure navigation is complete
       } catch (error) {
         console.error("Error deleting booking: ", error);
         alert("An error occurred. Please try again.");
