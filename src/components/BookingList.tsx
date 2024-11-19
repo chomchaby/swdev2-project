@@ -6,6 +6,9 @@ import BookingCard from "./BookingCard";
 
 const BookingList = ({ bookings }: { bookings: BookingItem[] }) => {
   const { data: session } = useSession();
+  if (!session || !session.user?.token) {
+    return null;
+  }
   if (!session?.user.token) {
     return null;
   }
@@ -46,7 +49,7 @@ const BookingList = ({ bookings }: { bookings: BookingItem[] }) => {
           <CustomSelect
             items={bookingFilter}
             selectedItem={filter}
-            onChange={(value: string) => setFilter(value)}
+            onChange={(value: string) => setFilter(value || "")}
             label="Booking Date"
           ></CustomSelect>
         </div>

@@ -10,6 +10,7 @@ export default function Home() {
         <p className="h3">Heading 3</p>
         <p className="subtitle1">Subtitle 1</p>
         <p className="subtitle2">Subtitle 2</p>
+        <p className="subtitle3">Subtitle 3</p>
         <p className="body1-semibold">Body 1 SemiBold</p>
         <p className="body1-md">Body 1 Medium</p>
         <p className="body2-semibold">Body 2 SemiBold</p>

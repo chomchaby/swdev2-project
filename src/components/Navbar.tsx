@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <div className="h-[72px] w-full bg-neutral-100 shadow-sm fixed top-0 left-0 right-0 z-30 grid grid-cols-[0%,auto,1fr,0%] md:grid-cols-[10%,auto,1fr,10%] xl:grid-cols-[15%,auto,1fr,15%] items-center px-4">
       <div></div>
-      <Link href="/" className="subtitle2 pr-4 md:pr-12 text-primary-600">
+      <Link href="/coworkingspaces" className="subtitle2 pr-4 md:pr-12 text-primary-600">
         Too Fast To Work
       </Link>
       <div className="flex flex-row items-center gap-x-4">
