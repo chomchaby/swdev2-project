@@ -18,6 +18,9 @@
   .subtitle2 {
     @apply text-neutral-700 font-bold text-[18px] leading-[28px] tracking-[0.4px] uppercase;
   }
+  .subtitle3 {
+    @apply text-neutral-700 font-bold text-[18px] leading-[28px] tracking-[0.4px];
+  }
   .body1-semibold {
     @apply text-neutral-700 font-bold text-[18px] leading-[28px];
   }

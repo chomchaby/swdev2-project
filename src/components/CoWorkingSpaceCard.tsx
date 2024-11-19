@@ -8,7 +8,7 @@ import {
 const CoWorkingSpaceCard = ({ data }: { data: CoWorkingSpaceItem }) => {
   return (
     <div className="flex flex-col space-y-[6px] body2-md">
-      <div className="w-full pt-[60%] relative">
+      <div className="w-full pt-[60%] mb-8 relative">
         <Image
           src={data.picture}
           alt="Picture of Co-working space"
@@ -28,7 +28,7 @@ const CoWorkingSpaceCard = ({ data }: { data: CoWorkingSpaceItem }) => {
           icon={faLocationDot}
           className="text-secondary-500 w-[1rem] mr-[0.5rem]"
         ></FontAwesomeIcon>
-        Address: {data.address}, {data.province}
+        Address: {data.address}, {data.province}, {data.postalcode}
       </div>
       <div>
         <FontAwesomeIcon
