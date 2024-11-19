@@ -3,8 +3,11 @@ import CoWorkingSpaceCard from "./CoWorkingSpaceCard";
 import Link from "next/link";
 import CustomButton from "./common/Button";
 
-const CoWorkingSpaceList = async({ coWorkingSpaces, role}: { coWorkingSpaces: CoWorkingSpaceItem[] ,role:string}) => {
-    
+const CoWorkingSpaceList = async({ coWorkingSpaces, session}: { coWorkingSpaces: CoWorkingSpaceItem[] ,session:any}) => {
+    let role = null;
+    if(session!=null){
+        role = session.user.role;
+    }
     return (
         <div className='flex justify-center'>
             <div className="mt-5 flex flex-row items-start justify-start flex-wrap gap-8">

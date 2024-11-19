@@ -10,7 +10,7 @@ import Link from "next/link";
 export default async function CoworkingSpacesPage() {
     const session = await getServerSession(authOptions);
 
-    if (!session || !session.user.token) return 
+    // if (!session || !session.user.token) return 
 
     const coWorkingSpaces = await getCoWorkingSpaces();
 
@@ -18,7 +18,7 @@ export default async function CoworkingSpacesPage() {
         <div>
             <div className='flex items-center justify-between'>
                 <PageTitle>Co-working Space</PageTitle>
-                {session.user.role === 'admin' && (
+                {session != null && session.user.role === 'admin' && (
                     <Link href='/coworkingspaces/create'>
                         <CustomButton className='w-[100px] h-[40px]'>
                             Create
@@ -27,7 +27,7 @@ export default async function CoworkingSpacesPage() {
                 )}
             </div>
             {coWorkingSpaces ? (
-                <CoWorkingSpaceList coWorkingSpaces={coWorkingSpaces.data} role={session.user.role}/>
+                <CoWorkingSpaceList coWorkingSpaces={coWorkingSpaces.data} session={session}/>
             ) : (
                 <p>Loading ... <LinearProgress /></p>
             )}
