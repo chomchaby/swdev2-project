@@ -35,6 +35,7 @@ const CoWorkingSpaceList = ({
             {role == "admin" ? (
               <CustomButton
                 onClick={(e) => {
+                  e.preventDefault();
                   e.stopPropagation();
                   router.push(`/coworkingspaces/${coWorkingSpace.id}/edit`);
                 }}
