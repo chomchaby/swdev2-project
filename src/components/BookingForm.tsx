@@ -82,6 +82,9 @@ const BookingForm = ({
         console.log("Booking created: ", response);
         alert("Booking created successfully!");
         router.push("/bookings");
+        setTimeout(() => {
+          window.location.reload(); // Force a reload of the /bookings page
+        }, 200); // Small delay (200ms) to ensure navigation is complete
       } catch (error) {
         console.error("Error creating booking: ", error);
         alert("An error occurred. Please try again.");
@@ -100,7 +103,7 @@ const BookingForm = ({
         // Using setTimeout to delay the reload after navigation
         setTimeout(() => {
           window.location.reload(); // Force a reload of the /bookings page
-        }, 100); // Small delay (100ms) to ensure navigation is complete
+        }, 200); // Small delay (200ms) to ensure navigation is complete
       } catch (error) {
         console.error("Error updating booking: ", error);
         alert("An error occurred. Please try again.");
@@ -121,7 +124,7 @@ const BookingForm = ({
         // Using setTimeout to delay the reload after navigation
         setTimeout(() => {
           window.location.reload(); // Force a reload of the /bookings page
-        }, 100); // Small delay (100ms) to ensure navigation is complete
+        }, 200); // Small delay (200ms) to ensure navigation is complete
       } catch (error) {
         console.error("Error deleting booking: ", error);
         alert("An error occurred. Please try again.");

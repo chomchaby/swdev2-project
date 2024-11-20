@@ -93,9 +93,6 @@ const CoWorkingSpaceCardEdit = ({
         alert("Co-working space updated successfully");
         console.log(response);
         router.push("/coworkingspaces");
-        setTimeout(() => {
-          window.location.reload(); // Force a reload of the /bookings page
-        }, 100); // Small delay (100ms) to ensure navigation is complete
       } else if (variant === "create") {
         const response = await createCoWorkingSpace(
           formData.name,
