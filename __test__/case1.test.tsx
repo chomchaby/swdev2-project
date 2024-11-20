@@ -1,48 +1,45 @@
-//Test missing requirement variable value 
 import { render, screen, fireEvent } from "@testing-library/react";
 import ReserveCoWorkingSpace from "@/components/ReserveCoWorkingSpace";
-import { SessionProvider } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-const mockCoWorkingSpace = {
-    success: true,
-    data: {
-      _id: "673ae3eff32addc35e78481e",
-      name: "Caffeine House",
-      operatingHours: "09:00AM-10:00PM",
-      address: "999",
-      province: "Bangkok",
-      postalcode: "10400",
-      tel: "000-123-4567",
-      picture: "https://utfs.io/f/qx6c8Uni5OtBhvjPBgmJRPCHe5M3XwKYnrxILS4AmZTaofF1",
-      __v: 0,
-      id: "673ae3eff32addc35e78481e"
-    }
-  }
+jest.mock("next-auth/react", () => ({
+  useSession: jest.fn(),
+}));
 
-  // Mock the useRouter hook from next/navigation
-jest.mock('next/navigation', () => ({
-    useRouter: () => ({
-      push: jest.fn(), 
-      prefetch: jest.fn(),
-    }),
-  }));
+jest.mock("next/navigation", () => ({
+  useRouter: jest.fn(),
+}));
 
-const mockSession = {
-  user: { token: "mockToken" },
-};
+jest.mock("@/libs/createBooking", () => jest.fn());
 
-describe("ReserveCoWorkingSpace Component", () => {
-    it("shows an error if 'Make Booking' is clicked without filling required fields", async () => {
-      render(
-        <SessionProvider session={{ data: mockSession } as any}>
-          <ReserveCoWorkingSpace coWorkingSpace={mockCoWorkingSpace} session={mockSession} />
-        </SessionProvider>
-      );
-  
-      const makeBookingButton = screen.getByText(/Make Booking/i);
-      fireEvent.click(makeBookingButton);
-  
-      const errorMessage = await screen.findByText("Please select a booking date and number of rooms.");
-      expect(errorMessage).toBeInTheDocument();
-    });
+describe("ReserveCoWorkingSpace", () => {
+  const mockCoWorkingSpace = {
+    data: { id: 1, name: "Mock Co-Working Space" },
+  };
+
+  const mockRouterPush = jest.fn();
+  (useRouter as jest.Mock).mockReturnValue({ push: mockRouterPush });
+
+  const mockSession = {
+    user: { token: "mock-token" },
+  };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
+
+  it("shows error if no booking date or number of rooms is selected", async () => {
+    (useSession as jest.Mock).mockReturnValue({ data: mockSession });
+
+    render(<ReserveCoWorkingSpace coWorkingSpace={mockCoWorkingSpace} />);
+
+    fireEvent.click(screen.getByText("Make Booking"));
+
+    expect(
+      await screen.findByText(
+        "Please select a booking date and number of rooms."
+      )
+    ).toBeInTheDocument();
+  });
+});
