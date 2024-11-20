@@ -17,9 +17,9 @@ const ReserveCoWorkingSpace = ({ coWorkingSpace }: { coWorkingSpace: any }) => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { data: session } = useSession();
-  if (!session) return null;
 
   const handleMakeBooking = async () => {
+    if (!session) return null;
     setError(null);
 
     if (!reserveDate && !numberOfRooms) {

@@ -18,6 +18,7 @@ export default function CoworkingSpacesPage() {
     const fetchData = async () => {
       const data = await getCoWorkingSpaces();
       setCoWorkingSpaces(data);
+      console.log("data", data);
     };
     fetchData();
   }, []);
