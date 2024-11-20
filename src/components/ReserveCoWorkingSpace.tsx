@@ -9,18 +9,15 @@ import CustomButton from "./common/Button";
 import { useRouter } from "next/navigation";
 import createBooking from "@/libs/createBooking";
 import CustomSelect from "./common/Select";
+import { useSession } from "next-auth/react";
 
-const ReserveCoWorkingSpace = ({
-  coWorkingSpace,
-  session,
-}: {
-  coWorkingSpace: any;
-  session: any;
-}) => {
+const ReserveCoWorkingSpace = ({ coWorkingSpace }: { coWorkingSpace: any }) => {
   const [reserveDate, setReserveDate] = useState<Dayjs | null>(null);
   const [numberOfRooms, setNumberOfRooms] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { data: session } = useSession();
+  if (!session) return null;
 
   const handleMakeBooking = async () => {
     setError(null);
